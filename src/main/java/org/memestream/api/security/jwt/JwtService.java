@@ -20,7 +20,7 @@ public class JwtService {
     @Value("${app.jwt.secret}")
     private String secret;
 
-    @Value("${app.jwt.exipartion:259200000}")
+    @Value("${app.jwt.expiration}")
     private long expiration;
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
