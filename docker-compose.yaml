@@ -1,0 +1,38 @@
+services:
+  mariadb:
+    image: mariadb:13.0.2
+    container_name: mariadb_container
+    restart: always
+    environment:
+      MARIADB_DATABASE: memestream_db
+      MARIADB_USER: amiran
+      MARIADB_PASSWORD: 1386
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: memestream-api:2.0.0
+    container_name: api_container
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/memestream_db?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: amiran
+      SPRING_DATASOURCE_PASSWORD: 1386
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+
+volumes:
+  mariadb_data:
