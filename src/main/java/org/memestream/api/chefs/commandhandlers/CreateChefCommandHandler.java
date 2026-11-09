@@ -1,10 +1,10 @@
-package org.memestream.api.security.chefs.commandhandlers;
+package org.memestream.api.chefs.commandhandlers;
 
 import org.memestream.api.Command;
-import org.memestream.api.security.chefs.ChefRepository;
-import org.memestream.api.security.chefs.ChefRole;
-import org.memestream.api.security.chefs.model.Chef;
-import org.memestream.api.security.chefs.model.ChefDTO;
+import org.memestream.api.chefs.ChefRepository;
+import org.memestream.api.chefs.model.ChefRole;
+import org.memestream.api.chefs.model.Chef;
+import org.memestream.api.chefs.model.ChefDTO;
 import org.memestream.api.security.jwt.JwtDTO;
 import org.memestream.api.security.jwt.JwtService;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +35,8 @@ public class CreateChefCommandHandler implements Command<ChefDTO, ResponseEntity
                 chefDTO.getUsername(),
                 passwordEncoder.encode(chefDTO.getPassword()),
                 false,
-                List.of(ChefRole.CHEF)
+                List.of(ChefRole.CHEF),
+                List.of()
         );
 
         chefRepository.save(newChef);

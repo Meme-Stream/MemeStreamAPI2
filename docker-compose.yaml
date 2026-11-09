@@ -33,6 +33,8 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+    volumes:
+      - /var/lib/memestream:/var/lib/memestream
 
 
 volumes:

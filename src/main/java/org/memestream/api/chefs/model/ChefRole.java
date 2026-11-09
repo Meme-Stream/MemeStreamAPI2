@@ -1,4 +1,4 @@
-package org.memestream.api.security.chefs;
+package org.memestream.api.chefs.model;
 
 public enum ChefRole {
     CHEF,

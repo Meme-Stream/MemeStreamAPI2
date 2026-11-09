@@ -1,8 +1,8 @@
-package org.memestream.api.security.chefs;
+package org.memestream.api.chefs;
 
-import org.memestream.api.security.chefs.commandhandlers.CreateChefCommandHandler;
-import org.memestream.api.security.chefs.commandhandlers.LoginChefCommandHandler;
-import org.memestream.api.security.chefs.model.ChefDTO;
+import org.memestream.api.chefs.commandhandlers.CreateChefCommandHandler;
+import org.memestream.api.chefs.commandhandlers.LoginChefCommandHandler;
+import org.memestream.api.chefs.model.ChefDTO;
 import org.memestream.api.security.jwt.JwtDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

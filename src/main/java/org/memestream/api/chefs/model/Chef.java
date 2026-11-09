@@ -1,10 +1,10 @@
-package org.memestream.api.security.chefs.model;
+package org.memestream.api.chefs.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.memestream.api.security.chefs.ChefRole;
+import org.memestream.api.memes.model.MemeMetadata;
 
 import java.util.List;
 
@@ -31,4 +31,7 @@ public class Chef {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", length = 50)
     private List<ChefRole> roles;
+
+    @OneToMany(mappedBy = "chef")
+    private List<MemeMetadata> memes;
 }

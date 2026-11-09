@@ -1,4 +1,4 @@
-package org.memestream.api.security.chefs.model;
+package org.memestream.api.chefs.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package org.memestream.api.security.chefs.commandhandlers;
+package org.memestream.api.chefs.commandhandlers;
 
 import org.memestream.api.Command;
-import org.memestream.api.security.chefs.model.ChefDTO;
+import org.memestream.api.chefs.model.ChefDTO;
 import org.memestream.api.security.jwt.JwtDTO;
 import org.memestream.api.security.jwt.JwtService;
 import org.springframework.http.ResponseEntity;
