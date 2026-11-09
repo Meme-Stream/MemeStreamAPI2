@@ -8,12 +8,12 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.memestream.api.chefs.model.Chef;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(name = "memes_metadata")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class MemeMetadata {
 
@@ -26,8 +26,31 @@ public class MemeMetadata {
     private String storedFilename;
     private String mimeType;
     private long size;
+    private Instant creationTime;
+
+    public MemeMetadata(UUID id,
+                        String title,
+                        String description,
+                        String storedFilename,
+                        String mimeType,
+                        long size,
+                        Chef chef) {
+
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.storedFilename = storedFilename;
+        this.mimeType = mimeType;
+        this.size = size;
+        this.chef = chef;
+    }
 
     @ManyToOne
     @JoinColumn(name = "chef_id")
     private Chef chef;
+
+    @PrePersist
+    private void onCreate() {
+        this.creationTime = Instant.now();
+    }
 }
