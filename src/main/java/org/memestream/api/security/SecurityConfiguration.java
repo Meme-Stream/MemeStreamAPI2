@@ -7,7 +7,6 @@ import org.memestream.api.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,7 +41,11 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/api/chefs/create", "/api/chefs/login").permitAll();
+                    authorize.requestMatchers(
+                            "/api/chefs/create", "/api/chefs/login",
+                            "/api/memes/all", "/api/memes/*"
+                            )
+                            .permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .sessionManagement(session ->
