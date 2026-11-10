@@ -1,6 +1,8 @@
 package org.memestream.api.security;
 
 import lombok.RequiredArgsConstructor;
+import org.memestream.api.exception.DelegatedAccessDeniedHandler;
+import org.memestream.api.exception.DelegatedAuthenticationEntryPoint;
 import org.memestream.api.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final DelegatedAuthenticationEntryPoint delegatedAuthenticationEntryPoint;
+    private final DelegatedAccessDeniedHandler delegatedAccessDeniedHandler;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) {
@@ -45,6 +49,10 @@ public class SecurityConfiguration {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exceptionHandlingConfigurer -> {
+                    exceptionHandlingConfigurer.authenticationEntryPoint(delegatedAuthenticationEntryPoint);
+                    exceptionHandlingConfigurer.accessDeniedHandler(delegatedAccessDeniedHandler);
+                })
                 .build();
     }
 
