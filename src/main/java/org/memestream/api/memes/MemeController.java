@@ -6,7 +6,6 @@ import org.memestream.api.memes.model.MemeMetadataDTO;
 import org.memestream.api.memes.model.UploadMemeDTO;
 import org.memestream.api.memes.queryhandlers.GetAllMemesQueryHandler;
 import org.memestream.api.memes.queryhandlers.GetMemeByIdQueryHandler;
-import org.memestream.api.model.SimpleMessage;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/memes")
@@ -34,7 +34,7 @@ public class MemeController {
     @PostMapping(
             value = "/create",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<SimpleMessage> createMeme
+    public ResponseEntity<Map<String, Object>> createMeme
             (@RequestPart("file") MultipartFile file,
              @RequestPart("metadata") MemeMetadataDTO memeMetadataDTO) throws IOException {
         return createMemeCommandHandler.execute(new UploadMemeDTO(file, memeMetadataDTO));

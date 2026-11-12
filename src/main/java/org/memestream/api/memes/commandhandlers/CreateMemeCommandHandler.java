@@ -6,7 +6,6 @@ import org.memestream.api.memes.MemeMetadataRepository;
 import org.memestream.api.memes.MemeStorageProperties;
 import org.memestream.api.memes.model.MemeMetadata;
 import org.memestream.api.memes.model.UploadMemeDTO;
-import org.memestream.api.model.SimpleMessage;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,10 +20,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class CreateMemeCommandHandler implements Command<UploadMemeDTO, ResponseEntity<SimpleMessage>> {
+public class CreateMemeCommandHandler implements Command<UploadMemeDTO, ResponseEntity<Map<String, Object>>> {
 
     private final MemeStorageProperties memeStorageProperties;
     private final Path basePath;
@@ -42,7 +42,7 @@ public class CreateMemeCommandHandler implements Command<UploadMemeDTO, Response
     }
 
     @Override
-    public ResponseEntity<SimpleMessage> execute(UploadMemeDTO uploadMemeDTO) throws IOException {
+    public ResponseEntity<Map<String, Object>> execute(UploadMemeDTO uploadMemeDTO) throws IOException {
         var file = uploadMemeDTO.getFile();
         validateFile(file);
 
@@ -81,7 +81,7 @@ public class CreateMemeCommandHandler implements Command<UploadMemeDTO, Response
 
         memeMetadataRepository.save(metadata);
 
-        return ResponseEntity.ok(new SimpleMessage("Success"));
+        return ResponseEntity.ok(Map.of("message", "Success"));
     }
 
     private String getFileExtension(String filename) {
