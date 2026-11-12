@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 
 import java.time.Instant;
 
-public class UserNotFoundException extends BaseException{
-    public UserNotFoundException(String message) {
+public class NotFoundException extends BaseException{
+    public NotFoundException(String message) {
         var errorResponse = new ErrorResponse(
                 "NotFound",
                 message,

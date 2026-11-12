@@ -1,6 +1,6 @@
 package org.memestream.api.chefs;
 
-import org.memestream.api.exception.UserNotFoundException;
+import org.memestream.api.exception.NotFoundException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +17,7 @@ public class ChefUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var savedChef = chefRepository.findById(username).orElseThrow(() -> new UserNotFoundException(username + " not found"));
+        var savedChef = chefRepository.findById(username).orElseThrow(() -> new NotFoundException(username + " not found"));
         return User.withUsername(savedChef.getUsername())
                 .password(savedChef.getPassword())
                 .roles(savedChef.getRoles().stream().map(Enum::name).toArray(String[]::new))

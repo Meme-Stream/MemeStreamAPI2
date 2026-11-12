@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.memestream.api.chefs.model.Chef;
+import org.memestream.api.votes.model.Vote;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -47,6 +49,9 @@ public class MemeMetadata {
     @ManyToOne
     @JoinColumn(name = "chef_id")
     private Chef chef;
+
+    @OneToMany(mappedBy = "meme", cascade = CascadeType.REMOVE)
+    private List<Vote> votes;
 
     @PrePersist
     private void onCreate() {
