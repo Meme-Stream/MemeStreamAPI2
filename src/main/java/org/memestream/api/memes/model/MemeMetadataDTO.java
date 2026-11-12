@@ -12,9 +12,6 @@ import java.time.Instant;
 @NoArgsConstructor
 public class MemeMetadataDTO {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY, value = "id")
-    private String memeId;
-
     private String title;
 
     private String description;
@@ -25,4 +22,9 @@ public class MemeMetadataDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String chefUsername;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY, value = "id")
+    private String memeId;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private int voteCounts;
 }

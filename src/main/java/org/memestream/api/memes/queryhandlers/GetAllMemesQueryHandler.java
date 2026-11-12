@@ -23,11 +23,12 @@ public class GetAllMemesQueryHandler implements Query<Pageable, ResponseEntity<L
         return ResponseEntity.ok(memeMetadataRepository.findAll(pageable)
                 .stream()
                 .map(mapper -> new MemeMetadataDTO(
-                        mapper.getId().toString(),
                         mapper.getTitle(),
                         mapper.getDescription(),
                         mapper.getCreationTime(),
-                        mapper.getChef().getUsername()
+                        mapper.getChef().getUsername(),
+                        mapper.getId().toString(),
+                        mapper.getVotes().size()
                 )).toList()
         );
     }
