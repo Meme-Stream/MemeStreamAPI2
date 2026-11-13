@@ -20,16 +20,6 @@ public class GetAllMemesQueryHandler implements Query<Pageable, ResponseEntity<L
 
     @Override
     public ResponseEntity<List<MemeMetadataDTO>> execute(Pageable pageable) {
-        return ResponseEntity.ok(memeMetadataRepository.findAll(pageable)
-                .stream()
-                .map(mapper -> new MemeMetadataDTO(
-                        mapper.getTitle(),
-                        mapper.getDescription(),
-                        mapper.getCreationTime(),
-                        mapper.getChef().getUsername(),
-                        mapper.getId().toString(),
-                        mapper.getVotes().size()
-                )).toList()
-        );
+        return ResponseEntity.ok(memeMetadataRepository.findAllMemeMetadataDTO());
     }
 }

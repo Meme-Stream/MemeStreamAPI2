@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -23,8 +24,8 @@ public class MemeMetadataDTO {
     private String chefUsername;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY, value = "id")
-    private String memeId;
+    private UUID memeId;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private int voteCounts;
+    private Long voteCounts;
 }
