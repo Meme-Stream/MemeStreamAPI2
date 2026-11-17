@@ -6,6 +6,7 @@ import org.memestream.api.memes.MemeMetadataRepository;
 import org.memestream.api.memes.MemeStorageProperties;
 import org.memestream.api.memes.model.MemeMetadata;
 import org.memestream.api.memes.model.UploadMemeDTO;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +42,7 @@ public class CreateMemeCommandHandler implements Command<UploadMemeDTO, Response
         this.memeMetadataRepository = memeMetadataRepository;
     }
 
+    @CacheEvict(value = "allMemes", allEntries = true)
     @Override
     public ResponseEntity<Map<String, Object>> execute(UploadMemeDTO uploadMemeDTO) throws IOException {
         var file = uploadMemeDTO.getFile();

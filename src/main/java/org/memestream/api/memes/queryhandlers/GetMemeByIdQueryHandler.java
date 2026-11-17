@@ -3,6 +3,7 @@ package org.memestream.api.memes.queryhandlers;
 import org.memestream.api.Query;
 import org.memestream.api.memes.MemeMetadataRepository;
 import org.memestream.api.memes.MemeStorageProperties;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class GetMemeByIdQueryHandler implements Query<String, ResponseEntity<Res
         this.memeMetadataRepository = memeMetadataRepository;
     }
 
+    @Cacheable(value = "meme", key = "#stringUUID")
     @Override
     public ResponseEntity<Resource> execute(String stringUUID) throws MalformedURLException {
         var uuid = UUID.fromString(stringUUID);

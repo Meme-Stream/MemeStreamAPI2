@@ -7,6 +7,7 @@ import org.memestream.api.memes.model.UploadMemeDTO;
 import org.memestream.api.memes.queryhandlers.GetAllMemesQueryHandler;
 import org.memestream.api.memes.queryhandlers.GetMemeByIdQueryHandler;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -17,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -46,7 +46,7 @@ public class MemeController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<MemeMetadataDTO>> getAllMemes
+    public ResponseEntity<Page<MemeMetadataDTO>> getAllMemes
             (@PageableDefault(size = 20, sort = "creationTime", direction = Sort.Direction.DESC) Pageable pageable) {
         return getAllMemesQueryHandler.execute(pageable);
     }
